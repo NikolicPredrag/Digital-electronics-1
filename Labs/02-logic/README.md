@@ -2,9 +2,7 @@
 
 ## Link to my GitHub
 
-https://github.com/DivinityQQ/Digital-electronics-1
-
-## Preparation tasks
+https://https://github.com/NikolicPredrag/Digital-electronics-1
 
 ### Truth table
 
@@ -27,21 +25,21 @@ https://github.com/DivinityQQ/Digital-electronics-1
 | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 
-## A 2-bit comparator
+## 2-bit comparator
 
 ### Karnaugh maps
 
 K-map for the "equals" funcion:
 
-![equals](Images/kmap_equals.png)
+![mapa](Images/mapa.png)
 
 K-map for the SoP form of the "greater than" function:
 
-![greater](Images/kmap_sop.png)
+![greater](Images/doplneni1.png)
 
 K-map for the PoS form of the "less than" function:
 
-![less](Images/kmap_pos.png)
+![less](Images/doplneni2.png)
 
 ### Equations
 
@@ -49,9 +47,9 @@ K-map for the PoS form of the "less than" function:
 
 ### EDA Playground link
 
-https://www.edaplayground.com/x/BHFL
+https://www.edaplayground.com/x/U9C2
 
-## A 4-bit binary comparator
+## 4-bit binary comparator
 
 ### Listing of VHDL code from design file
 
@@ -66,9 +64,6 @@ begin
     B_equals_A_o    <= '1' when (b_i = a_i) else '0';
     B_less_A_o      <= '1' when (b_i < a_i) else '0';
     
-
-    -- WRITE "GREATER" AND "EQUALS" ASSIGNMENTS HERE
-
 
 end architecture Behavioral;
 ```
@@ -90,8 +85,7 @@ begin
     -- If false, then report an error
     report "Test failed for input combination: 0000, 0000" severity error;
     
-    
-    -- WRITE OTHER TESTS HERE
+   
     
 	s_b <= "0000"; s_a <= "0001"; wait for 100 ns;
 	assert ((s_B_greater_A = '0') and (s_B_equals_A = '0') and (s_B_less_A = '1'))
@@ -149,8 +143,8 @@ end process p_stimulus;
 
 ### Simulator console dump
 
-![Console_dump](Images/dump.PNG)
+![Dump](Images/pad.PNG)
 
 ### EDA Playground link
 
-https://www.edaplayground.com/x/EjZh
+https://www.edaplayground.com/x/kLYb
