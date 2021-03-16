@@ -6,7 +6,7 @@ https://https://github.com/NikolicPredrag/Digital-electronics-1
 
 ### Figure or table with connection of push buttons on Nexys A7 board
 
-![1](Images/1.PNG)
+![1](Images/1.png)
 
 ### Table with calculated values
 
@@ -25,10 +25,9 @@ https://https://github.com/NikolicPredrag/Digital-electronics-1
 p_cnt_up_down : process(clk)
 begin
     if rising_edge(clk) then
-    
-        if (reset = '1') then               -- Synchronous reset
-            s_cnt_local <= (others => '0'); -- Clear all bits
-        elsif (en_i = '1') then       -- Test if counter is enabled
+        if (reset = '1') then               
+            s_cnt_local <= (others => '0');
+        elsif (en_i = '1') then       
             if (cnt_up_i = '1') then         
                 s_cnt_local <= s_cnt_local + 1;
             else
@@ -47,30 +46,23 @@ p_reset_gen : process
     begin
         s_reset <= '0';
         wait for 12 ns;
-        
-        -- Reset activated
         s_reset <= '1';
         wait for 73 ns;
         s_reset <= '0';
         wait;
     end process p_reset_gen;
 ```
+
    **Stimulus process**
 ```vhdl
     p_stimulus : process
     begin
         report "Stimulus process started" severity note;
-
-        -- Enable counting
         s_en     <= '1';
-       
-        -- Change counter direction
         s_cnt_up <= '1';
         wait for 380 ns;
         s_cnt_up <= '0';
         wait for 220 ns;
-
-        -- Disable counting
         s_en     <= '0';
         report "Stimulus process finished" severity note;
         wait;
@@ -79,7 +71,9 @@ p_reset_gen : process
 
 ### Screenshot with simulated time waveforms; always display all inputs and outputs
 
-## Top level. Submit
+![2](Images/2.png)
+
+## Top level
 
 ### Listing of VHDL code from source file top.vhd with all instantiations for the 4-bit bidirectional counter
 
@@ -102,39 +96,29 @@ entity top is
            AN : out STD_LOGIC_VECTOR (8-1 downto 0));
 end top;
 architecture Behavioral of top is
-    -- Internal clock enable
     signal s_en  : std_logic;
-    -- Internal counter
     signal s_cnt : std_logic_vector(4 - 1 downto 0);
-
 begin
-
     clk_en0 : entity work.clock_enable
         generic map(
-            --- WRITE YOUR CODE HERE
             g_MAX => 10000000
         )
         port map(
-            --- WRITE YOUR CODE HERE
             clk   => CLK100MHZ,
             reset => BTNC,
             ce_o  => s_en
         );
     bin_cnt0 : entity work.cnt_up_down
         generic map(
-            --- WRITE YOUR CODE HERE
             g_CNT_WIDTH => 4
         )
         port map(
-            --- WRITE YOUR CODE HERE
             clk      => CLK100MHZ,
             reset    => BTNC,
             en_i     => s_en,
             cnt_up_i => SW(0),
             cnt_o    => s_cnt
         );
-
-    -- Display input value on LEDs
     LED(3 downto 0) <= s_cnt;
     hex2seg : entity work.hex_7seg
         port map(
@@ -153,3 +137,4 @@ end architecture Behavioral;
 
 ### Image of the top layer including both counters, ie a 4-bit bidirectional counter from Part 4 and a 16-bit counter with a 10 ms time base from Part Experiments on your own. The image can be drawn on a computer or by hand
 
+![3](Images/3.jpg)
